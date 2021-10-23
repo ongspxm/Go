@@ -8,30 +8,35 @@ package graph
 // It is safe to use its empty object.
 type UndirectedGraph struct {
 	vertices int
-	edges    map[int]map[int]struct{}
+	edges    map[int]map[int]int
 }
 
 // AddVertex will add a new vertex in the graph, if the vertex already
 // exist it will do nothing
 func (g *UndirectedGraph) AddVertex(v int) {
 	if g.edges == nil {
-		g.edges = make(map[int]map[int]struct{})
+		g.edges = make(map[int]map[int]int)
 	}
 
 	// Check if vertex is present or not
 	if _, ok := g.edges[v]; !ok {
 		g.vertices++
-		g.edges[v] = make(map[int]struct{})
+		g.edges[v] = make(map[int]int)
 	}
 }
 
-// AddEdge will add a new edge between the provided vertices in the graph
-func (g *UndirectedGraph) AddEdge(one, two int) {
+// AddEdgeValue will add a new edge between the provided vertices in the graph
+func (g *UndirectedGraph) AddEdgeValue(one, two, val int) {
 	// Add vertices: one and two to the graph if they are not present
 	g.AddVertex(one)
 	g.AddVertex(two)
 
 	// and finally add the edges: one->two and two->one for undirected graph
-	g.edges[one][two] = struct{}{}
-	g.edges[two][one] = struct{}{}
+	g.edges[one][two] = val
+	g.edges[two][one] = val
+}
+
+// AddEdge will add a new edge between the provided vertices in the graph
+func (g *UndirectedGraph) AddEdge(one, two int) {
+    g.AddEdgeValue(one, two, 0)
 }
