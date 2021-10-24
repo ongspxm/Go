@@ -38,5 +38,5 @@ func (g *UndirectedGraph) AddEdgeValue(one, two, val int) {
 
 // AddEdge will add a new edge between the provided vertices in the graph
 func (g *UndirectedGraph) AddEdge(one, two int) {
-    g.AddEdgeValue(one, two, 0)
+	g.AddEdgeValue(one, two, 0)
 }
